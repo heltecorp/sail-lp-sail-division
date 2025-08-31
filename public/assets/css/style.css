@@ -1,0 +1,215 @@
+/* 基本設定 */
+body {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ヒーローセクション */
+.hero-section {
+    background-image: url('../images/Sail_top.jpg');
+    background-size: cover;
+    background-position: center 30%;
+}
+
+/* CTAボタン */
+.cta-button {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s;
+}
+.cta-button:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 24px -8px rgba(30, 64, 175, 0.4);
+}
+
+/* フェードインアニメーション */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* カードホバー */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+}
+
+/* モーダルアニメーション */
+@keyframes modal-in {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.animate-modal-in { animation: modal-in 0.3s ease-out forwards; }
+
+/* 動画ラッパー */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: 0.75rem;
+}
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ★更新: メディアロゴスクローラー */
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+.media-scroller .scroller-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: scroll 100s linear infinite; /* 速度を調整 (50s -> 100s) */
+}
+.media-scroller .scroller-logo {
+    height: 60px; /* 高さを調整 */
+    margin: 0 25px; /* 余白を調整 */
+    padding: 10px; /* パディングを追加 */
+    background-color: white;
+    border-radius: 8px; /* 角を丸める */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07); /* 影を追加 */
+    box-sizing: border-box;
+}
+
+
+/* ★新規追加: ステップの線のアニメーション */
+#step-line-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 2s ease-in-out;
+}
+#step-line-path.visible {
+    stroke-dashoffset: 0;
+}
+
+/* ★新規追加: 実績セクション */
+.stats-section {
+    background-color: #f8fafc; /* bg-slate-50 */
+}
+.stat-item .counter {
+    color: #2563eb; /* text-blue-600 */
+    font-weight: 900; /* font-black */
+    font-size: 3rem; /* text-5xl */
+    line-height: 1;
+}
+.stat-item .unit {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 700; /* font-bold */
+    color: #4b5563; /* text-gray-600 */
+    margin-left: 0.25rem;
+}
+.stat-item .description {
+    margin-top: 0.5rem;
+    color: #6b7280; /* text-gray-500 */
+    font-weight: 500; /* font-medium */
+}
+
+/* ★新規追加: 料金プラン表 */
+.pricing-table {
+    background-color: white;
+    border: 1px solid #e2e8f0; /* gray-200 */
+}
+
+.pricing-header {
+    background-color: #2563eb; /* blue-700 */
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.125rem; /* text-lg */
+    line-height: 1.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.pricing-header > div {
+    padding-left: 1rem; /* pl-4 */
+    padding-right: 1rem; /* pr-4 */
+}
+
+.pricing-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    color: #4a5568; /* gray-700 */
+    border-bottom: 1px solid #e2e8f0; /* gray-200 */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.pricing-row:last-child {
+    border-bottom: none;
+}
+
+.pricing-row > div {
+    padding-left: 1rem; /* pl-4 */
+    padding-right: 1rem; /* pr-4 */
+}
+
+.pricing-row:nth-child(odd) {
+    background-color: #f8fafc; /* bg-gray-50 */
+}
+
+.pricing-row .checkmark {
+    color: #10b981; /* green-500 */
+    font-weight: bold;
+}
+
+.pricing-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #f8fafc; /* bg-gray-50 */
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.pricing-footer > div {
+    padding-left: 0.5rem; /* px-2 */
+    padding-right: 0.5rem; /* px-2 */
+}
+
+/* Responsive adjustments for pricing table */
+@media (max-width: 767px) { /* md breakpoint */
+    .pricing-table {
+        display: block;
+    }
+    .pricing-header, .pricing-row, .pricing-footer {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+    }
+    .pricing-header > div:not(:first-child),
+    .pricing-row > div:not(:first-child),
+    .pricing-footer > div:not(:first-child) {
+        border-top: 1px solid #e2e8f0; /* Separator for stacked items */
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+    .pricing-header > div:first-child {
+        text-align: left;
+    }
+    .pricing-row > div:first-child {
+        text-align: left;
+        font-weight: bold;
+        color: #2d3748; /* gray-800 */
+    }
+    .pricing-row > div:not(:first-child) {
+        text-align: center;
+    }
+    .pricing-footer > div:not(:first-child) {
+        text-align: center;
+    }
+}
