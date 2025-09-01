@@ -38,4 +38,3 @@ UI/UX Alchemistによって、魅力的でインタラクティブな体験を�
 - Tailwind CSS
 - Vanilla JavaScript (ES6+)
 - Google Apps Script (GAS)
-# sail-lp
