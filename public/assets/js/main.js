@@ -76,50 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
         stepObserver.observe(stepSection);
     }
 
-    // プレミアムプランの先行登録フォーム
-    const premiumForm = document.getElementById('premium-form');
-    const emailInput = document.getElementById('premium-email');
-    const formMessage = document.getElementById('form-message');
-
-    if (premiumForm) {
-        premiumForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = emailInput.value;
-            const submitButton = premiumForm.querySelector('button[type="submit"]');
-
-            if (GAS_WEB_APP_URL === 'YOUR_GAS_WEB_APP_URL') {
-                formMessage.textContent = '管理者様: GASのURLが設定されていません。';
-                formMessage.className = 'text-center text-sm mt-2 h-4 text-red-500';
-                return;
-            }
-            
-            submitButton.disabled = true;
-            submitButton.textContent = '登録中...';
-            formMessage.textContent = '';
-
-            fetch(GAS_WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors', // 'no-cors'はGAS側でエラー詳細が見えないため、開発時は'cors'を推奨
-                cache: 'no-cache',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email })
-            })
-            .then(response => {
-                // no-corsモードではレスポンスの中身を読めないため、成功したと仮定
-                emailInput.value = '';
-                formMessage.textContent = 'ご登録ありがとうございます！';
-                formMessage.className = 'text-center text-sm mt-2 h-4 text-green-600';
-                submitButton.textContent = '登録完了';
-            })
-            .catch(error => {
-                formMessage.textContent = 'エラーが発生しました。';
-                formMessage.className = 'text-center text-sm mt-2 h-4 text-red-500';
-                submitButton.disabled = false;
-                submitButton.textContent = '先行登録';
-            });
-        });
-    }
-
     // ★新規追加: 数字のカウンターアップアニメーション
     const statsSection = document.getElementById('stats');
     if (statsSection) {
@@ -150,5 +106,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { threshold: 0.5 });
         counterObserver.observe(statsSection);
+    }
+
+    // ★新規追加: 言語切り替えロジック
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        const switchLanguage = (lang) => {
+            const jaElements = document.querySelectorAll('.lang-ja');
+            const enElements = document.querySelectorAll('.lang-en');
+            
+            if (lang === 'en') {
+                jaElements.forEach(el => el.classList.add('hidden'));
+                enElements.forEach(el => el.classList.remove('hidden'));
+                if(langSwitch.type === 'checkbox') langSwitch.checked = true;
+                localStorage.setItem('sail_lang', 'en');
+                document.documentElement.lang = 'en';
+            } else {
+                enElements.forEach(el => el.classList.add('hidden'));
+                jaElements.forEach(el => el.classList.remove('hidden'));
+                if(langSwitch.type === 'checkbox') langSwitch.checked = false;
+                localStorage.setItem('sail_lang', 'ja');
+                document.documentElement.lang = 'ja';
+            }
+        };
+
+        // 初期設定
+        const savedLang = localStorage.getItem('sail_lang') || 'ja';
+        switchLanguage(savedLang);
+
+        // トグルイベント
+        langSwitch.addEventListener('change', (e) => {
+            switchLanguage(e.target.checked ? 'en' : 'ja');
+        });
     }
 });
